@@ -8,13 +8,30 @@
 import UIKit
 
 class ReminderListViewController: UICollectionViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
+    
+    var dataSource: DataSource!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // Configure the collection view appearance as a list, using compositional layout.
         let listLayout = listLayout()
         collectionView.collectionViewLayout = listLayout
+        
+        // Set the cell's content and appearance.
+        let cellRegistration = UICollectionView.CellRegistration { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
+            let reminder = Reminder.sampleData[indexPath.item]
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = reminder.title
+            cell.contentConfiguration = contentConfiguration
+        }
+        
+        // Connect the diffable data source to the collection view by passing in the collection view to the diffable data source initializer.
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        })
     }
 
     private func listLayout() -> UICollectionViewCompositionalLayout {
