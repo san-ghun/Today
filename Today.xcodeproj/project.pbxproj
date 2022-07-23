@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD86A9EC288C7EDA00E48F62 /* Date+Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */; };
 		BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CB288C35020023F5EB /* AppDelegate.swift */; };
 		BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */; };
 		BDE2B5D0288C35020023F5EB /* ReminderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CF288C35020023F5EB /* ReminderListViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Today.swift"; sourceTree = "<group>"; };
 		BDE2B5C8288C35020023F5EB /* Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Today.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDE2B5CB288C35020023F5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				BDE2B5E0288C386B0023F5EB /* Reminder.swift */,
+				BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDE2B5D0288C35020023F5EB /* ReminderListViewController.swift in Sources */,
+				BD86A9EC288C7EDA00E48F62 /* Date+Today.swift in Sources */,
 				BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */,
 				BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */,
 				BDE2B5E1288C386B0023F5EB /* Reminder.swift in Sources */,
