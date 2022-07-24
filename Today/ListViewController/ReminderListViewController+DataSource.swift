@@ -30,8 +30,29 @@ extension ReminderListViewController {
         // Apply the content configurateion to cell
         cell.contentConfiguration = contentConfiguration
         
+        // Call and assign done button configuration method
+        var doneButtonConfiguration = doneButtonConfiguration(for: reminder)
+        doneButtonConfiguration.tintColor = .todayListCellDoneButtonTint
+        
+        // Create an array of cell accessories, and assign the button configuration
+        cell.accessories = [ .customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always) ]
+        
+        // Apply background configuration for cell
         var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
         backgroundConfiguration.backgroundColor = .todayListCellBackground
         cell.backgroundConfiguration = backgroundConfiguration
+    }
+    
+    private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
+        
+        // Ternary conditional operator to assign circle.fill or circle
+        let symbolName = reminder.isComplete ? "circle.fill" : "circle"
+        let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
+        let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
+        
+        // TODO: Add an action to the control that toggles the status of the `complete` property.
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
     }
 }
