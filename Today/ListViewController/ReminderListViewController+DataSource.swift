@@ -12,13 +12,13 @@ import UIKit
 extension ReminderListViewController {
     
     // type alias difinitions for data source and snapshots of reminder data.
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
     
     // Set the cell's content and appearance.
-    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
+    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) {
         
-        let reminder = Reminder.sampleData[indexPath.item]
+        let reminder = reminders[indexPath.item]
         
         // Configure content and appearance
         var contentConfiguration = cell.defaultContentConfiguration()
