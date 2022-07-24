@@ -29,5 +29,9 @@ extension ReminderListViewController {
         
         // Apply the content configurateion to cell
         cell.contentConfiguration = contentConfiguration
+        
+        var backgroundConfiguration = UIBackgroundConfiguration.listGroupedCell()
+        backgroundConfiguration.backgroundColor = .todayListCellBackground
+        cell.backgroundConfiguration = backgroundConfiguration
     }
 }
