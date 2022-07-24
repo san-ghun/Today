@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD86A9EC288C7EDA00E48F62 /* Date+Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */; };
+		BD86A9F0288DD5D200E48F62 /* ReminderListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86A9EF288DD5D200E48F62 /* ReminderListViewController+DataSource.swift */; };
+		BD86A9F2288DDBA500E48F62 /* UIColor+Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD86A9F1288DDBA500E48F62 /* UIColor+Today.swift */; };
 		BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CB288C35020023F5EB /* AppDelegate.swift */; };
 		BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */; };
 		BDE2B5D0288C35020023F5EB /* ReminderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE2B5CF288C35020023F5EB /* ReminderListViewController.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Today.swift"; sourceTree = "<group>"; };
+		BD86A9EF288DD5D200E48F62 /* ReminderListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderListViewController+DataSource.swift"; sourceTree = "<group>"; };
+		BD86A9F1288DDBA500E48F62 /* UIColor+Today.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Today.swift"; sourceTree = "<group>"; };
 		BDE2B5C8288C35020023F5EB /* Today.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Today.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDE2B5CB288C35020023F5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BD86A9EE288DD56B00E48F62 /* ListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BDE2B5CF288C35020023F5EB /* ReminderListViewController.swift */,
+				BD86A9EF288DD5D200E48F62 /* ReminderListViewController+DataSource.swift */,
+			);
+			path = ListViewController;
+			sourceTree = "<group>";
+		};
 		BDE2B5BF288C35020023F5EB = {
 			isa = PBXGroup;
 			children = (
@@ -61,7 +76,7 @@
 				BDE2B5DF288C384D0023F5EB /* Models */,
 				BDE2B5CB288C35020023F5EB /* AppDelegate.swift */,
 				BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */,
-				BDE2B5CF288C35020023F5EB /* ReminderListViewController.swift */,
+				BD86A9EE288DD56B00E48F62 /* ListViewController */,
 				BDE2B5D1288C35020023F5EB /* Main.storyboard */,
 				BDE2B5D4288C35070023F5EB /* Assets.xcassets */,
 				BDE2B5D6288C35070023F5EB /* LaunchScreen.storyboard */,
@@ -74,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				BDE2B5E0288C386B0023F5EB /* Reminder.swift */,
+				BD86A9EB288C7EDA00E48F62 /* Date+Today.swift */,
+				BD86A9F1288DDBA500E48F62 /* UIColor+Today.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -149,10 +166,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD86A9F2288DDBA500E48F62 /* UIColor+Today.swift in Sources */,
 				BDE2B5D0288C35020023F5EB /* ReminderListViewController.swift in Sources */,
+				BD86A9EC288C7EDA00E48F62 /* Date+Today.swift in Sources */,
 				BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */,
 				BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */,
 				BDE2B5E1288C386B0023F5EB /* Reminder.swift in Sources */,
+				BD86A9F0288DD5D200E48F62 /* ReminderListViewController+DataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
