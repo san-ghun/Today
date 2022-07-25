@@ -43,6 +43,18 @@ extension ReminderListViewController {
         cell.backgroundConfiguration = backgroundConfiguration
     }
     
+    func completeReminder(with id: Reminder.ID) {
+        
+        // Fetch the reminder
+        var reminder = reminder(for: id)
+        
+        // Toggle the isComplete property
+        reminder.isComplete.toggle()
+        
+        // Update the reminder
+        update(reminder, with: id)
+    }
+    
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
         
         // Ternary conditional operator to assign circle.fill or circle
