@@ -16,6 +16,17 @@ struct Reminder: Identifiable {
     
 }
 
+extension Array where Element == Reminder {
+    
+    // return the index of specific reminder
+    func indexOfReminder(with id: Reminder.ID) -> Self.Index {
+        guard let index = firstIndex(where: { $0.id == id}) else {
+            fatalError()
+        }
+        return index
+    }
+}
+
 /*
  Add an extension to store your sample reminders data, and put the extension inside an #if DEBUG block.
  

@@ -18,7 +18,7 @@ extension ReminderListViewController {
     // Set the cell's content and appearance.
     func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) {
         
-        let reminder = reminders[indexPath.item]
+        let reminder = reminder(for: id)
         
         // Configure content and appearance
         var contentConfiguration = cell.defaultContentConfiguration()
@@ -54,5 +54,15 @@ extension ReminderListViewController {
         let button = UIButton()
         button.setImage(image, for: .normal)
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
+    }
+    
+    func reminder(for id: Reminder.ID) -> Reminder {
+        let index = reminders.indexOfReminder(with: id)
+        return reminders[index]
+    }
+    
+    func update(_ reminder: Reminder, with id: Reminder.ID) {
+        let index = reminders.indexOfReminder(with: id)
+        reminders[index] = reminder
     }
 }
