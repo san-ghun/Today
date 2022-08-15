@@ -15,6 +15,23 @@ extension ReminderListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
     
+    // Update and apply a snapshot to update user interface when data changes.
+    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
+        // Sepcifying an empty array as the default value for the parameter lets the app call the method from `viewDidLoad()` without providing identifiers.
+        
+        // Create an empty snapshot, and append sections and items.
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(Reminder.sampleData.map { $0.id })
+        
+        if !ids.isEmpty {
+            snapshot.reloadItems(ids)
+        }
+        
+        // Apply the snapshot to the data source
+        dataSource.apply(snapshot)
+    }
+    
     // Set the cell's content and appearance.
     func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) {
         
@@ -53,6 +70,9 @@ extension ReminderListViewController {
         
         // Update the reminder
         update(reminder, with: id)
+        
+        // Update snapshot to update UI
+        updateSnapshot(reloading: [id])
     }
     
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
@@ -63,7 +83,9 @@ extension ReminderListViewController {
         let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
         
         // TODO: Add an action to the control that toggles the status of the `complete` property.
-        let button = UIButton()
+        let button = ReminderDoneButton()
+        button.addTarget(self, action: #selector(didPressDoneButton(_:)), for: .touchUpInside)
+        button.id = reminder.id
         button.setImage(image, for: .normal)
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
     }
