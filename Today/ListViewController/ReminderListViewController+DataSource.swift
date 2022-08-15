@@ -12,13 +12,38 @@ import UIKit
 extension ReminderListViewController {
     
     // type alias difinitions for data source and snapshots of reminder data.
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
+    
+    // accessibilityValue, using computed properties, for the button
+    var reminderCompletedValue: String {
+        NSLocalizedString("Completed", comment: "Reminder completed value")
+    }
+    var reminderNotCompletedValue: String {
+        NSLocalizedString("Not completed", comment: "Reminder not completed value")
+    }
+    
+    // Update and apply a snapshot to update user interface when data changes.
+    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
+        // Sepcifying an empty array as the default value for the parameter lets the app call the method from `viewDidLoad()` without providing identifiers.
+        
+        // Create an empty snapshot, and append sections and items.
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(Reminder.sampleData.map { $0.id })
+        
+        if !ids.isEmpty {
+            snapshot.reloadItems(ids)
+        }
+        
+        // Apply the snapshot to the data source
+        dataSource.apply(snapshot)
+    }
     
     // Set the cell's content and appearance.
-    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: String) {
+    func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) {
         
-        let reminder = Reminder.sampleData[indexPath.item]
+        let reminder = reminder(for: id)
         
         // Configure content and appearance
         var contentConfiguration = cell.defaultContentConfiguration()
@@ -34,6 +59,12 @@ extension ReminderListViewController {
         var doneButtonConfiguration = doneButtonConfiguration(for: reminder)
         doneButtonConfiguration.tintColor = .todayListCellDoneButtonTint
         
+        // Set the cell's `accessibilityCustomActions` array to an instance of the custom action.
+        cell.accessibilityCustomActions = [ doneButtonAccessibilityAction(for: reminder) ]
+        
+        // Assign the correct localized string to the cell's accessibilityValue.
+        cell.accessibilityValue = reminder.isComplete ? reminderCompletedValue : reminderNotCompletedValue
+        
         // Create an array of cell accessories, and assign the button configuration
         cell.accessories = [ .customView(configuration: doneButtonConfiguration), .disclosureIndicator(displayed: .always) ]
         
@@ -43,16 +74,53 @@ extension ReminderListViewController {
         cell.backgroundConfiguration = backgroundConfiguration
     }
     
+    func completeReminder(with id: Reminder.ID) {
+        
+        // Fetch the reminder
+        var reminder = reminder(for: id)
+        
+        // Toggle the isComplete property
+        reminder.isComplete.toggle()
+        
+        // Update the reminder
+        update(reminder, with: id)
+        
+        // Update snapshot to update UI
+        updateSnapshot(reloading: [id])
+    }
+    
+    // Call the method in the cell registration handler to create a custom action for each cell.
+    private func doneButtonAccessibilityAction(for reminder: Reminder) -> UIAccessibilityCustomAction {
+        let name = NSLocalizedString("Toggle completion", comment: "Reminder done button accessibility label")
+        
+        // By default, closures create a strong reference to external values that use inside them. Specifying a `weak` reference to the view controller prevents a retain cycle.
+        let action = UIAccessibilityCustomAction(name: name) { [weak self] action in
+            self?.completeReminder(with: reminder.id)
+            return true
+        }
+        return action
+    }
+    
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
         
         // Ternary conditional operator to assign circle.fill or circle
         let symbolName = reminder.isComplete ? "circle.fill" : "circle"
         let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
         let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
-        
-        // TODO: Add an action to the control that toggles the status of the `complete` property.
-        let button = UIButton()
+        let button = ReminderDoneButton()
+        button.addTarget(self, action: #selector(didPressDoneButton(_:)), for: .touchUpInside)
+        button.id = reminder.id
         button.setImage(image, for: .normal)
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
+    }
+    
+    func reminder(for id: Reminder.ID) -> Reminder {
+        let index = reminders.indexOfReminder(with: id)
+        return reminders[index]
+    }
+    
+    func update(_ reminder: Reminder, with id: Reminder.ID) {
+        let index = reminders.indexOfReminder(with: id)
+        reminders[index] = reminder
     }
 }

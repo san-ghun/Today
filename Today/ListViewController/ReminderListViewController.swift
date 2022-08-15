@@ -9,7 +9,12 @@ import UIKit
 
 class ReminderListViewController: UICollectionViewController {
     
+    // Diffable data source
+    // SHOULD initialize the data source with guarantee that the optional has a value
     var dataSource: DataSource!
+    
+    // reminders property to configure snapshots and collection view cells. Init with sample data.
+    var reminders: [Reminder] = Reminder.sampleData
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,17 +28,11 @@ class ReminderListViewController: UICollectionViewController {
         let cellRegistration = UICollectionView.CellRegistration(handler: cellRegistrationHandler)
         
         // Connect the diffable data source to the collection view by passing in the collection view to the diffable data source initializer.
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
         
-        // Create an empty snapshot, and append sections and items.
-        var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems(Reminder.sampleData.map { $0.title })
-        
-        // Apply the snapshot to the data source
-        dataSource.apply(snapshot)
+        updateSnapshot()
         
         // Assign the data source to the collection view.
         collectionView.dataSource = dataSource
