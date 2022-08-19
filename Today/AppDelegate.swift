@@ -14,6 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().tintColor = .todayPrimaryTint
+        UINavigationBar.appearance().backgroundColor = .todayNavigationBackground
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+//        navBarAppearance.configureWithTransparentBackground()
+//        navBarAppearance.configureWithDefaultBackground()
+        
+        /// Some of the list view’s content appears behind the navigation bar. If the scrolled content reaches the navigation bar, UIKit applies the default appearance settings.
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        
         return true
     }
 

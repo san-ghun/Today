@@ -37,6 +37,20 @@ class ReminderListViewController: UICollectionViewController {
         // Assign the data source to the collection view.
         collectionView.dataSource = dataSource
     }
+    
+    // Not showing the item that the user tapped as selected.
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        
+        let id = reminders[indexPath.item].id
+        showDetail(for: id)
+        return false
+    }
+    
+    func showDetail(for id: Reminder.ID) {
+        let reminder = reminder(for: id)
+        let viewController = ReminderViewController(reminder: reminder)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 
     private func listLayout() -> UICollectionViewCompositionalLayout {
         
