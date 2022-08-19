@@ -13,6 +13,7 @@ private let reuseIdentifier = "Cell"
 class ReminderViewController: UICollectionViewController {
     
     private typealias DataSource = UICollectionViewDiffableDataSource<Int, Row>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Row>
     
     var reminder: Reminder
     private var dataSource: DataSource!
@@ -48,6 +49,8 @@ class ReminderViewController: UICollectionViewController {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Row) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+        
+        updateSnapshot()
     }
 
     /*
@@ -74,8 +77,13 @@ class ReminderViewController: UICollectionViewController {
         // Apply the content configurateion to cell
         cell.contentConfiguration = contentConfiguration
         cell.tintColor = .todayPrimaryTint
-        
-        
+    }
+    
+    private func updateSnapshot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: 0)
+        dataSource.apply(snapshot)
     }
     
     func text(for row: Row) -> String? {
