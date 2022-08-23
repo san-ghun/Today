@@ -12,8 +12,8 @@ private let reuseIdentifier = "Cell"
 /// Lay out the list of reminder detailes and supplies the list with the reminder details data.
 class ReminderViewController: UICollectionViewController {
     
-    private typealias DataSource = UICollectionViewDiffableDataSource<Int, Row>
-    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Row>
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
     var reminder: Reminder
     private var dataSource: DataSource!
@@ -83,9 +83,22 @@ class ReminderViewController: UICollectionViewController {
     
     private func updateSnapshot() {
         var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: 0)
+        snapshot.appendSections([.view])
+        snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: .view)
         dataSource.apply(snapshot)
+    }
+    
+    /// returns the section for a row to pass
+    private func section(for indexPath: IndexPath) -> Section {
+        
+        /// In view mode, all items are displayed in section 0.
+        /// In editing mode, the title, date, and notes are separated into sections 1, 2, and 3, respectively.
+        let sectionNumber = isEditing ? indexPath.section + 1 : indexPath.section
+        
+        /// Swift enumerations defined with a raw value have a failable initializer that returns `nil` if the provided raw value is outside the defined range.
+        guard let section = Section(rawValue: sectionNumber) else {  fatalError("Unable to find matching section") }
+        
+        return section
     }
     
     func text(for row: Row) -> String? {
