@@ -51,8 +51,9 @@ class ReminderViewController: UICollectionViewController {
         })
         
         navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
+        navigationItem.rightBarButtonItem = editButtonItem
         
-        updateSnapshot()
+        updateSnapshotForViewing()
     }
 
     /*
@@ -67,21 +68,48 @@ class ReminderViewController: UICollectionViewController {
     
     // MARK: - Methods
     
-    // Set the cell's content and appearance.
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            updateSnapShotForEditing()
+        }
+        else {
+            updateSnapshotForViewing()
+        }
+    }
+    
+    /// Set the cell's content and appearance to support the view and editing modes.
     func cellRegistrationHandler(cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) {
         
-        // Configure content and appearance
-        var contentConfiguration = cell.defaultContentConfiguration()
-        contentConfiguration.text = text(for: row)
-        contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
-        contentConfiguration.image = row.image
+        // Retrieve the section from the index path
+        let section = section(for: indexPath)
         
-        // Apply the content configurateion to cell
-        cell.contentConfiguration = contentConfiguration
+        // Add a switch statement to configure cells for different section and row combinations.
+        switch (section, row) {
+        case (.view, _):
+            
+            // Configure content and appearance
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = text(for: row)
+            contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
+            contentConfiguration.image = row.image
+            
+            // Apply the content configurateion to cell
+            cell.contentConfiguration = contentConfiguration
+        default:
+            fatalError("Unexpected combination of section and row.")
+        }
+        
         cell.tintColor = .todayPrimaryTint
     }
     
-    private func updateSnapshot() {
+    private func updateSnapShotForEditing() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.title, .date, .notes])
+        dataSource.apply(snapshot)
+    }
+    
+    private func updateSnapshotForViewing() {
         var snapshot = Snapshot()
         snapshot.appendSections([.view])
         snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: .view)
@@ -117,6 +145,7 @@ class ReminderViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDataSource
 
+    /*
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 0
@@ -135,6 +164,7 @@ class ReminderViewController: UICollectionViewController {
     
         return cell
     }
+    */
 
     // MARK: UICollectionViewDelegate
 
