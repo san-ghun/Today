@@ -24,6 +24,7 @@ class ReminderViewController: UICollectionViewController {
         // a list compositional layout contains only the layout information needed for a list
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
+        listConfiguration.headerMode = .firstItemInSection
         let listLayout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         super.init(collectionViewLayout: listLayout)
     }
@@ -86,14 +87,16 @@ class ReminderViewController: UICollectionViewController {
         
         // Add a switch statement to configure cells for different section and row combinations.
         switch (section, row) {
+        case (_, .header(let title)):
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = title
+            cell.contentConfiguration = contentConfiguration
         case (.view, _):
-            
             // Configure content and appearance
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = text(for: row)
             contentConfiguration.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
             contentConfiguration.image = row.image
-            
             // Apply the content configurateion to cell
             cell.contentConfiguration = contentConfiguration
         default:
@@ -106,13 +109,16 @@ class ReminderViewController: UICollectionViewController {
     private func updateSnapShotForEditing() {
         var snapshot = Snapshot()
         snapshot.appendSections([.title, .date, .notes])
+        snapshot.appendItems([.header(Section.title.name)], toSection: .title)
+        snapshot.appendItems([.header(Section.date.name)], toSection: .date)
+        snapshot.appendItems([.header(Section.notes.name)], toSection: .notes)
         dataSource.apply(snapshot)
     }
     
     private func updateSnapshotForViewing() {
         var snapshot = Snapshot()
         snapshot.appendSections([.view])
-        snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: .view)
+        snapshot.appendItems([.header(""), .viewTitle, .viewDate, .viewTime, .viewNotes], toSection: .view)
         dataSource.apply(snapshot)
     }
     
@@ -140,6 +146,7 @@ class ReminderViewController: UICollectionViewController {
             return reminder.dueDate.formatted(date: .omitted, time: .shortened)
         case .viewTitle:
             return reminder.title
+        default: return nil
         }
     }
 
