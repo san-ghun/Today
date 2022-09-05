@@ -32,6 +32,20 @@ extension ReminderViewController {
         return contentConfiguration
     }
     
+    /// Accepts a cell and a title and returns a `DatePickerContentView.Configuration`.
+    func dateConfiguration(for cell: UICollectionViewListCell, with date: Date) -> DatePickerContentView.Configuration {
+        var contentConfiguration = cell.datePickerConfiguration()
+        contentConfiguration.date = date
+        return contentConfiguration
+    }
+    
+    /// Accepts a cell and a title and returns a `TextViewContentView.Configuration`.
+    func notesConfiguration(for cell: UICollectionViewListCell, with notes: String?) -> TextViewContentView.Configuration {
+        var contentConfiguration = cell.textViewConfiguration()
+        contentConfiguration.text = notes
+        return contentConfiguration
+    }
+    
     /// Create appropriate text string for a row type.
     func text(for row: Row) -> String? {
         switch row {
