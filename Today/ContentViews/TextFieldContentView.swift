@@ -12,6 +12,7 @@ class TextFieldContentView: UIView, UIContentView {
     /// To customize the content of the configuration and the view.
     struct Configuration: UIContentConfiguration {
         var text: String? = ""
+        var onChange: (String)->Void = { _ in }
         
         /// The final behavior that need to include to conform to the `UIContentConfiguration` protocol.
         func makeContentView() -> UIView & UIContentView {
@@ -35,6 +36,7 @@ class TextFieldContentView: UIView, UIContentView {
         self.configuration = configuration
         super.init(frame: .zero)
         addPinnedSubView(textField, insets: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        textField.addTarget(self, action: #selector(didChange(_:)), for: .editingChanged)
         textField.clearButtonMode = .whileEditing
     }
     
@@ -45,6 +47,11 @@ class TextFieldContentView: UIView, UIContentView {
     func configure(configuration: UIContentConfiguration) {
         guard let configuration = configuration as? Configuration else { return }
         textField.text = configuration.text
+    }
+    
+    @objc private func didChange(_ sender: UITextField) {
+        guard let configuration = configuration as? TextFieldContentView.Configuration else { return }
+        configuration.onChange(textField.text ?? "")
     }
 }
 
