@@ -13,13 +13,19 @@ class ReminderViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
-    var reminder: Reminder
+    var reminder: Reminder {
+        didSet {
+            onChange(reminder)
+        }
+    }
     var workingReminder: Reminder   // temporary reminder that stores the edits until the user chooses to save or discard.
+    var onChange: (Reminder)->Void
     private var dataSource: DataSource!
     
-    init(reminder: Reminder) {
+    init(reminder: Reminder, onChange: @escaping (Reminder)->Void) {
         self.reminder = reminder
         self.workingReminder = reminder
+        self.onChange = onChange
         
         // a list compositional layout contains only the layout information needed for a list
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
