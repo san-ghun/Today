@@ -12,6 +12,7 @@ class TextViewContentView: UIView, UIContentView {
     /// To customize the content of the configuration and the view.
     struct Configuration: UIContentConfiguration {
         var text: String? = ""
+        var onChange: (String)->Void = { _ in }
         
         /// The final behavior that need to include to conform to the `UIContentConfiguration` protocol.
         func makeContentView() -> UIView & UIContentView {
@@ -36,6 +37,7 @@ class TextViewContentView: UIView, UIContentView {
         super.init(frame: .zero)
         addPinnedSubView(textView, height: 200)
         textView.backgroundColor = nil
+        textView.delegate = self
         textView.font = UIFont.preferredFont(forTextStyle: .body)
     }
     
@@ -55,5 +57,13 @@ extension UICollectionViewListCell {
     /// Returns a new `TextViewContentView.Configuration`.
     func textViewConfiguration() -> TextViewContentView.Configuration {
         TextViewContentView.Configuration()
+    }
+}
+
+extension TextViewContentView: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        guard let  configuration = configuration as? TextViewContentView.Configuration else { return }
+        configuration.onChange(textView.text)
     }
 }
