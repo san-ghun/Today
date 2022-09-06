@@ -19,6 +19,7 @@ class ReminderViewController: UICollectionViewController {
         }
     }
     var workingReminder: Reminder   // temporary reminder that stores the edits until the user chooses to save or discard.
+    var isAddingNewReminder = false
     var onChange: (Reminder)->Void
     private var dataSource: DataSource!
     
@@ -82,7 +83,12 @@ class ReminderViewController: UICollectionViewController {
             prepareForEditing()
         }
         else {
-            prepareForViewing()
+            if !isAddingNewReminder {
+                prepareForViewing()
+            }
+            else {
+                onChange(workingReminder)
+            }
         }
     }
     
