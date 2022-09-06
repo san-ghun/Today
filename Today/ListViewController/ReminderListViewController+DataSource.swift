@@ -30,8 +30,7 @@ extension ReminderListViewController {
         // Create an empty snapshot, and append sections and items.
         var snapshot = Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(Reminder.sampleData.map { $0.id })
-        
+        snapshot.appendItems(reminders.map { $0.id })
         if !ids.isEmpty {
             snapshot.reloadItems(ids)
         }
@@ -112,6 +111,10 @@ extension ReminderListViewController {
         button.id = reminder.id
         button.setImage(image, for: .normal)
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
+    }
+    
+    func add(_ reminder: Reminder) {
+        reminders.append(reminder)
     }
     
     func reminder(for id: Reminder.ID) -> Reminder {
