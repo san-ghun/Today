@@ -23,14 +23,19 @@ extension ReminderListViewController {
         NSLocalizedString("Not completed", comment: "Reminder not completed value")
     }
     
-    // Update and apply a snapshot to update user interface when data changes.
-    func updateSnapshot(reloading ids: [Reminder.ID] = []) {
+    /// Update and apply a snapshot to update user interface when data changes.
+    func updateSnapshot(reloading idsThatChanged: [Reminder.ID] = []) {
         // Sepcifying an empty array as the default value for the parameter lets the app call the method from `viewDidLoad()` without providing identifiers.
+        
+        // Filter IDs to include only id that correspond to reminders in the filteredReminders array
+        let ids = idsThatChanged.filter { id in 
+            filteredReminders.contains(where: { $0.id == id })
+        }
         
         // Create an empty snapshot, and append sections and items.
         var snapshot = Snapshot()
         snapshot.appendSections([0])
-        snapshot.appendItems(reminders.map { $0.id })
+        snapshot.appendItems(filteredReminders.map { $0.id })
         if !ids.isEmpty {
             snapshot.reloadItems(ids)
         }
