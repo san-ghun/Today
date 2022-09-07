@@ -23,7 +23,7 @@ extension ReminderListViewController {
         NSLocalizedString("Not completed", comment: "Reminder not completed value")
     }
     
-    // Update and apply a snapshot to update user interface when data changes.
+    /// Update and apply a snapshot to update user interface when data changes.
     func updateSnapshot(reloading idsThatChanged: [Reminder.ID] = []) {
         // Sepcifying an empty array as the default value for the parameter lets the app call the method from `viewDidLoad()` without providing identifiers.
         
