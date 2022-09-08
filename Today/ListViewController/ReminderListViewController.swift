@@ -13,8 +13,8 @@ class ReminderListViewController: UICollectionViewController {
     // SHOULD initialize the data source with guarantee that the optional has a value
     var dataSource: DataSource!
     
-    // reminders property to configure snapshots and collection view cells. Init with sample data.
-    var reminders: [Reminder] = Reminder.sampleData
+    // reminders property to configure snapshots and collection view cells.
+    var reminders: [Reminder] = []
     
     var filteredReminders: [Reminder] {
         return reminders
@@ -74,6 +74,9 @@ class ReminderListViewController: UICollectionViewController {
         
         // Assign the data source to the collection view.
         collectionView.dataSource = dataSource
+        
+        // Prepare reminder store 
+        prepareReminderStore()
     }
     
     override func viewWillAppear(_ animated: Bool) {
