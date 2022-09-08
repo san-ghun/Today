@@ -25,10 +25,21 @@ class ReminderListViewController: UICollectionViewController {
     let listStyleSegmentedControl = UISegmentedControl(items: [
         ReminderListStyle.today.name, ReminderListStyle.future.name, ReminderListStyle.all.name
     ])
+    var headerView: ProgressHeaderView?
+    var progress: CGFloat {
+        let chunkSize = 1.0 / CGFloat(filteredReminders.count)
+        let progress = filteredReminders.reduce(0.0) {
+            let chunk = $1.isComplete ? chunkSize : 0
+            return $0 + chunk
+        }
+        return progress
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        collectionView.backgroundColor = .todayGradientFutureBegin
         
         // Configure the collection view appearance as a list, using compositional layout.
         let listLayout = listLayout()
@@ -41,15 +52,24 @@ class ReminderListViewController: UICollectionViewController {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         })
+        
+        // Register the header view as a supplementary view.
+        let headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: ProgressHeaderView.elementKind, handler: supplementaryRegistrationHandler)
+        dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+        }
 
+        // Set a button which add new reminder
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
         addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
         navigationItem.rightBarButtonItem = addButton
         
+        // Set segmented control
         listStyleSegmentedControl.selectedSegmentIndex = listStyle.rawValue
         listStyleSegmentedControl.addTarget(self, action: #selector(didChangeListStyle(_:)), for: .valueChanged)
         navigationItem.titleView = listStyleSegmentedControl
         
+        // Update snapshot
         updateSnapshot()
         
         // Assign the data source to the collection view.
@@ -62,6 +82,14 @@ class ReminderListViewController: UICollectionViewController {
         let id = filteredReminders[indexPath.item].id
         showDetail(for: id)
         return false
+    }
+    
+    // Called when the collection view is about to display the supplementary view.
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        
+        // Triggers the header view's `didSet` observer.
+        guard elementKind == ProgressHeaderView.elementKind, let progressView = view as? ProgressHeaderView else { return }
+        progressView.progress = progress
     }
     
     func showDetail(for id: Reminder.ID) {
@@ -77,6 +105,7 @@ class ReminderListViewController: UICollectionViewController {
         
         // Create a section in a list layout
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.headerMode = .supplementary
         listConfiguration.showsSeparators = false
         listConfiguration.trailingSwipeActionsConfigurationProvider = makeSwipeActions
         listConfiguration.backgroundColor = .clear
@@ -92,6 +121,10 @@ class ReminderListViewController: UICollectionViewController {
             completion(false)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    private func supplementaryRegistrationHandler(progressView: ProgressHeaderView, elementKind: String, indexPath: IndexPath) {
+        headerView = progressView
     }
 
 }

@@ -42,6 +42,9 @@ extension ReminderListViewController {
         
         // Apply the snapshot to the data source
         dataSource.apply(snapshot)
+        
+        // Update the header view's progress
+        headerView?.progress = progress
     }
     
     // Set the cell's content and appearance.
