@@ -33,6 +33,7 @@
 		BDF82EB528CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */; };
 		BDF82EB728CA854000AE34A4 /* TodayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB628CA854000AE34A4 /* TodayError.swift */; };
 		BDF82EB928CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */; };
+		BDF82EBB28CA8B3500AE34A4 /* Reminder+EKReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EBA28CA8B3500AE34A4 /* Reminder+EKReminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+ListStyle.swift"; sourceTree = "<group>"; };
 		BDF82EB628CA854000AE34A4 /* TodayError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayError.swift; sourceTree = "<group>"; };
 		BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEventStore+AsyncFetch.swift"; sourceTree = "<group>"; };
+		BDF82EBA28CA8B3500AE34A4 /* Reminder+EKReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reminder+EKReminder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 				BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */,
 				BDF82EB628CA854000AE34A4 /* TodayError.swift */,
 				BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */,
+				BDF82EBA28CA8B3500AE34A4 /* Reminder+EKReminder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */,
 				BD856AB628C38C0400052BB2 /* ReminderViewController+CellConfiguration.swift in Sources */,
 				BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */,
+				BDF82EBB28CA8B3500AE34A4 /* Reminder+EKReminder.swift in Sources */,
 				BDF82EB928CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift in Sources */,
 				BDE2B5E1288C386B0023F5EB /* Reminder.swift in Sources */,
 				BDF82EB528CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift in Sources */,
