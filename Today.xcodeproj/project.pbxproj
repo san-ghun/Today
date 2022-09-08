@@ -31,6 +31,8 @@
 		BDF4120E28AAE9800030DB9E /* ReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF4120D28AAE9800030DB9E /* ReminderViewController.swift */; };
 		BDF7936728CA1E5A0094B795 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF7936628CA1E5A0094B795 /* ProgressHeaderView.swift */; };
 		BDF82EB528CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */; };
+		BDF82EB728CA854000AE34A4 /* TodayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB628CA854000AE34A4 /* TodayError.swift */; };
+		BDF82EB928CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		BDF4120D28AAE9800030DB9E /* ReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewController.swift; sourceTree = "<group>"; };
 		BDF7936628CA1E5A0094B795 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
 		BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAGradientLayer+ListStyle.swift"; sourceTree = "<group>"; };
+		BDF82EB628CA854000AE34A4 /* TodayError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayError.swift; sourceTree = "<group>"; };
+		BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEventStore+AsyncFetch.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,12 +121,12 @@
 			isa = PBXGroup;
 			children = (
 				BDE2B5DF288C384D0023F5EB /* Models */,
-				BDE2B5CB288C35020023F5EB /* AppDelegate.swift */,
-				BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */,
 				BD856AB728C391E300052BB2 /* ContentViews */,
 				BDF4120F28AAEB850030DB9E /* DetailViewController */,
 				BD86A9EE288DD56B00E48F62 /* ListViewController */,
 				BDE2B5D1288C35020023F5EB /* Main.storyboard */,
+				BDE2B5CB288C35020023F5EB /* AppDelegate.swift */,
+				BDE2B5CD288C35020023F5EB /* SceneDelegate.swift */,
 				BDE2B5D4288C35070023F5EB /* Assets.xcassets */,
 				BDE2B5D6288C35070023F5EB /* LaunchScreen.storyboard */,
 				BDE2B5D9288C35070023F5EB /* Info.plist */,
@@ -138,6 +142,8 @@
 				BD86A9F1288DDBA500E48F62 /* UIColor+Today.swift */,
 				BD8836AE28C807DD00228471 /* ReminderListStyle.swift */,
 				BDF82EB428CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift */,
+				BDF82EB628CA854000AE34A4 /* TodayError.swift */,
+				BDF82EB828CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,6 +236,7 @@
 				BD8E908C28C694C4000A4700 /* DatePickerContentView.swift in Sources */,
 				BD86A9F2288DDBA500E48F62 /* UIColor+Today.swift in Sources */,
 				BD38451F288F3EB6005FD8EB /* ReminderListViewController+Actions.swift in Sources */,
+				BDF82EB728CA854000AE34A4 /* TodayError.swift in Sources */,
 				BDF4120E28AAE9800030DB9E /* ReminderViewController.swift in Sources */,
 				BD8836AF28C807DD00228471 /* ReminderListStyle.swift in Sources */,
 				BD8E908828C6842E000A4700 /* UIContentConfiguration+Stateless.swift in Sources */,
@@ -242,6 +249,7 @@
 				BDE2B5CC288C35020023F5EB /* AppDelegate.swift in Sources */,
 				BD856AB628C38C0400052BB2 /* ReminderViewController+CellConfiguration.swift in Sources */,
 				BDE2B5CE288C35020023F5EB /* SceneDelegate.swift in Sources */,
+				BDF82EB928CA85F200AE34A4 /* EKEventStore+AsyncFetch.swift in Sources */,
 				BDE2B5E1288C386B0023F5EB /* Reminder.swift in Sources */,
 				BDF82EB528CA3DD100AE34A4 /* CAGradientLayer+ListStyle.swift in Sources */,
 				BD86A9F0288DD5D200E48F62 /* ReminderListViewController+DataSource.swift in Sources */,
