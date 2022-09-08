@@ -37,6 +37,8 @@ class ProgressHeaderView: UICollectionReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        heightConstraint?.constant = progress * bounds.height
+        
         // customize the view's layout behavior to adjust the corner radius whenever the size changes
         
         // Core Animation applies a clipping mast to the CGRect frame that shapes the container view into a circle
