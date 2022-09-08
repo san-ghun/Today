@@ -12,6 +12,7 @@ class ProgressHeaderView: UICollectionReusableView {
     
     var progress: CGFloat = 0 {
         didSet {
+            setNeedsLayout()
             heightConstraint?.constant = progress * bounds.height
             UIView.animate(withDuration: 0.2) { [weak self] in
                 // force the view to update its layout immediately
@@ -24,10 +25,15 @@ class ProgressHeaderView: UICollectionReusableView {
     private let lowerView = UIView(frame: .zero)
     private let containerView = UIView(frame: .zero)
     private var heightConstraint: NSLayoutConstraint?
+    private var valueFormat: String { NSLocalizedString("%d percent", comment: "progress percentage value format") }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareSubviews()
+        
+        isAccessibilityElement = true
+        accessibilityLabel = NSLocalizedString("Progress", comment: "Progress view accessibility label")
+        accessibilityTraits.update(with: .updatesFrequently)
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +43,7 @@ class ProgressHeaderView: UICollectionReusableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        accessibilityValue = String(format: valueFormat, Int(progress * 100.0))
         heightConstraint?.constant = progress * bounds.height
         
         // customize the view's layout behavior to adjust the corner radius whenever the size changes
