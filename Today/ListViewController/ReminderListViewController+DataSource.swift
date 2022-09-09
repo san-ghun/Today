@@ -23,6 +23,8 @@ extension ReminderListViewController {
         NSLocalizedString("Not completed", comment: "Reminder not completed value")
     }
     
+    private var reminderStore: ReminderStore { ReminderStore.shared }
+    
     /// Update and apply a snapshot to update user interface when data changes.
     func updateSnapshot(reloading idsThatChanged: [Reminder.ID] = []) {
         // Sepcifying an empty array as the default value for the parameter lets the app call the method from `viewDidLoad()` without providing identifiers.
@@ -121,13 +123,55 @@ extension ReminderListViewController {
         return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
     }
     
+    func prepareReminderStore() {
+        Task {
+            do {
+                try await reminderStore.requestAccess()
+                reminders = try await reminderStore.readAll()
+                NotificationCenter.default.addObserver(self, selector: #selector(eventStoreChanged(_:)), name: .EKEventStoreChanged, object: nil)
+            }
+            catch TodayError.accessDenied, TodayError.accessRestricted {
+                #if DEBUG
+                reminders = Reminder.sampleData
+                #endif
+            }
+            catch {
+                showError(error)
+            }
+            updateSnapshot()
+        }
+    }
+    
+    func reminderStoreChanged() {
+        Task {
+            reminders = try await reminderStore.readAll()
+            updateSnapshot()
+        }
+    }
+    
     func add(_ reminder: Reminder) {
-        reminders.append(reminder)
+        var reminder = reminder
+        do {
+            let idFromStore = try reminderStore.save(reminder)
+            reminder.id = idFromStore
+            reminders.append(reminder)
+        }
+        catch TodayError.accessDenied { }
+        catch {
+            showError(error)
+        }
     }
     
     func deleteReminder(with id: Reminder.ID) {
-        let index = reminders.indexOfReminder(with: id)
-        reminders.remove(at: index)
+        do {
+            try reminderStore.remove(with: id)
+            let index = reminders.indexOfReminder(with: id)
+            reminders.remove(at: index)
+        }
+        catch TodayError.accessDenied { }
+        catch {
+            showError(error)
+        }
     }
     
     func reminder(for id: Reminder.ID) -> Reminder {
@@ -136,7 +180,14 @@ extension ReminderListViewController {
     }
     
     func update(_ reminder: Reminder, with id: Reminder.ID) {
-        let index = reminders.indexOfReminder(with: id)
-        reminders[index] = reminder
+        do {
+            try reminderStore.save(reminder)
+            let index = reminders.indexOfReminder(with: id)
+            reminders[index] = reminder
+        }
+        catch TodayError.accessDenied { }
+        catch {
+            showError(error)
+        }
     }
 }
