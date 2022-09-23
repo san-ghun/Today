@@ -58,7 +58,7 @@ class WaveAnimationView: UIView {
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         
-        layer.cornerRadius = width / 2
+//        layer.cornerRadius = width / 2
         layer.masksToBounds = true
         layer.borderWidth = 1.0
         layer.borderColor = UIColor.lightGray.cgColor
@@ -67,8 +67,8 @@ class WaveAnimationView: UIView {
         
 //        firstColor = .cyan
 //        secondColor = .cyan.withAlphaComponent(0.4)
-//        firstColor = UIColor(red: 0.08, green: 0.42, blue: 0.81, alpha: 1.00)
-//        secondColor = UIColor(red: 0.27, green: 0.74, blue: 1.00, alpha: 1.00)
+//        firstColor = UIColor(red: 0.08, green: 0.42, blue: 0.81, alpha: 0.40)
+//        secondColor = UIColor(red: 0.27, green: 0.74, blue: 1.00, alpha: 0.40)
         firstColor = .todayProgressUpperBackground
         secondColor = .todayProgressLowerBackground
         
