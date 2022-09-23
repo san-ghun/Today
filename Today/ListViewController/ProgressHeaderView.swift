@@ -12,12 +12,14 @@ class ProgressHeaderView: UICollectionReusableView {
     
     var progress: CGFloat = 0 {
         didSet {
-            setNeedsLayout()
-            heightConstraint?.constant = progress * bounds.height
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                // force the view to update its layout immediately
-                self?.layoutIfNeeded()
-            }
+//            setNeedsLayout()
+//            heightConstraint?.constant = progress * bounds.height
+//            waveView.progress = progress * bounds.height
+            waveView.setupProgress(progress)
+//            UIView.animate(withDuration: 0.2) { [weak self] in
+//                // force the view to update its layout immediately
+//                self?.layoutIfNeeded()
+//            }
         }
     }
     

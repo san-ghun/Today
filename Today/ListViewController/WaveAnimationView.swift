@@ -97,8 +97,8 @@ class WaveAnimationView: UIView {
     func setupProgress(_ pr: CGFloat) {
         progress = pr
         
-        let top: CGFloat = 1 * bounds.size.height / 2
-//        let top: CGFloat = pr * bounds.size.height
+//        let top: CGFloat = 1 * bounds.size.height / 2
+        let top: CGFloat = pr * bounds.size.height - (bounds.size.height * 0.12)
         firstLayer.setValue(width - top, forKeyPath: "position.y")
         secondLayer.setValue(width - top, forKeyPath: "position.y")
         
