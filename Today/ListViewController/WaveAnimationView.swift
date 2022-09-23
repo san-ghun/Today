@@ -37,6 +37,7 @@ class WaveAnimationView: UIView {
         xAxis = 0.0
         yAxis = 0.0
         super.init(frame: frame)
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -66,10 +67,10 @@ class WaveAnimationView: UIView {
         
 //        firstColor = .cyan
 //        secondColor = .cyan.withAlphaComponent(0.4)
-        firstColor = UIColor(red: 0.08, green: 0.42, blue: 0.81, alpha: 1.00)
-        secondColor = UIColor(red: 0.27, green: 0.74, blue: 1.00, alpha: 1.00)
-//        firstColor = .todayProgressUpperBackground
-//        secondColor = .todayProgressLowerBackground
+//        firstColor = UIColor(red: 0.08, green: 0.42, blue: 0.81, alpha: 1.00)
+//        secondColor = UIColor(red: 0.27, green: 0.74, blue: 1.00, alpha: 1.00)
+        firstColor = .todayProgressUpperBackground
+        secondColor = .todayProgressLowerBackground
         
         createFirstLayer()
         
